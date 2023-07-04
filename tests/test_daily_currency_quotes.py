@@ -15,7 +15,7 @@ def isfloat(n):
 
 
 # Проверка сатус-кодов
-# На невалидый URL по факту приходит редирект, но сюда прилетает 200. Не разобрался, как решить
+# На невалидый URL по факту приходит редирект, но сюда прилетает 200.
 @pytest.mark.parametrize("func", [get_daily_currency(), gdc_certain_date('01/01/2021')])
 def test_status_code(func):
     assert func.status_code == 200
