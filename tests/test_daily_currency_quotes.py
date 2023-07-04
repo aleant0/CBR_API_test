@@ -2,7 +2,8 @@ import pytest
 import requests
 import xmlschema
 from xml.etree import ElementTree as ET
-from src.daily_currency_quotes import get_daily_currency, xml_schema, gdc_certain_date, currency_list
+from src.daily_currency_quotes import get_daily_currency, xml_schema,\
+    gdc_certain_date, currency_list
 
 
 def isfloat(n):
@@ -13,7 +14,8 @@ def isfloat(n):
         return False
 
 
-# Проверка сатус-кодов (На невалидый URL по факту приходит редирект, но сюда прилетает 200. Не разобрался, как решить)
+# Проверка сатус-кодов
+# На невалидый URL по факту приходит редирект, но сюда прилетает 200. Не разобрался, как решить
 @pytest.mark.parametrize("func", [get_daily_currency(), gdc_certain_date('01/01/2021')])
 def test_status_code(func):
     assert func.status_code == 200
@@ -40,7 +42,8 @@ def test_value_is_num(func):
     assert count == len(daily.findall("Valute"))
 
 
-# Сверка кодов валют в выдаче с ISO кодами валют(Список с ISO кодами валют неполный, в нём нет старых валют)
+# Сверка кодов валют в выдаче с ISO кодами валют
+# Список с ISO кодами валют неполный, в нём нет старых валют
 @pytest.mark.parametrize("func", [get_daily_currency(), gdc_certain_date('01/01/2021')])
 def test_quotes_code_validation(func):
     count = 0
